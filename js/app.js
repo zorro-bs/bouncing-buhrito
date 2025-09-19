@@ -5,10 +5,10 @@ let ctx;
 let logoColor;
 
 let burrito = {
-    x: 200 + Math.floor(Math.random() * 20),
-    y: 300 + Math.floor(Math.random() * 20),
-    xspeed: 5,
-    yspeed: 5,
+    x: 300 + Math.floor(Math.random() * 40) - 20,
+    y: 300 + Math.floor(Math.random() * 40) - 20,
+    xspeed: 5 * (Math.random() > 0.5 ? -1 : 1),
+    yspeed: 5 * (Math.random() > 0.5 ? -1 : 1),
     img: new Image()
 };
 
