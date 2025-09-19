@@ -7,15 +7,15 @@ let logoColor;
 let burrito = {
     x: 200 + Math.floor(Math.random() * 20),
     y: 300 + Math.floor(Math.random() * 20),
-    xspeed: 7,
-    yspeed: 7,
+    xspeed: 5,
+    yspeed: 5,
     img: new Image()
 };
 
 (function main(){
     canvas = document.getElementById("tv-screen");
     ctx = canvas.getContext("2d");
-    burrito.img.src = 'buhrit-bounce-logo.png';
+    burrito.img.src = 'images/buhrit-bounce-logo.png';
 
     //Draw the "tv screen"
     canvas.width  = window.innerWidth;
@@ -58,9 +58,9 @@ function checkHitBox(){
 
 //Pick a random color in RGB format
 function pickColor(){
-    r = Math.random() * (254 - 0) + 0;
-    g = Math.random() * (254 - 0) + 0;
-    b = Math.random() * (254 - 0) + 0;
+    r = Math.random() * 234 + 20;
+    g = Math.random() * 234 + 20;
+    b = Math.random() * 234 + 20;
 
     logoColor = 'rgb('+r+','+g+', '+b+')';
 
