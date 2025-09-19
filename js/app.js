@@ -5,8 +5,8 @@ let ctx;
 let logoColor;
 
 let burrito = {
-    x: 200,
-    y: 300,
+    x: 200 + Math.floor(Math.random() * 20);,
+    y: 300 + Math.floor(Math.random() * 20);,
     xspeed: 7,
     yspeed: 7,
     img: new Image()
@@ -63,4 +63,5 @@ function pickColor(){
     b = Math.random() * (254 - 0) + 0;
 
     logoColor = 'rgb('+r+','+g+', '+b+')';
+
 }
