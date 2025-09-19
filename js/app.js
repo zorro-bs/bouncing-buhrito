@@ -4,7 +4,7 @@ let canvas;
 let ctx;
 let logoColor;
 
-let dvd = {
+let burrito = {
     x: 200,
     y: 300,
     xspeed: 7,
@@ -15,7 +15,7 @@ let dvd = {
 (function main(){
     canvas = document.getElementById("tv-screen");
     ctx = canvas.getContext("2d");
-    dvd.img.src = 'buhrit-bounce-logo.png';
+    burrito.img.src = 'buhrit-bounce-logo.png';
 
     //Draw the "tv screen"
     canvas.width  = window.innerWidth;
@@ -30,13 +30,13 @@ function update() {
         //Draw the canvas background
         ctx.fillStyle = '#000';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        //Draw DVD Logo and his background
+        //Draw burrito Logo and his background
         ctx.fillStyle = logoColor;
-        ctx.fillRect(dvd.x, dvd.y, dvd.img.width*scale, dvd.img.height*scale);
-        ctx.drawImage(dvd.img, dvd.x, dvd.y, dvd.img.width*scale, dvd.img.height*scale);
+        ctx.fillRect(burrito.x, burrito.y, burrito.img.width*scale, burrito.img.height*scale);
+        ctx.drawImage(burrito.img, burrito.x, burrito.y, burrito.img.width*scale, burrito.img.height*scale);
         //Move the logo
-        dvd.x+=dvd.xspeed;
-        dvd.y+=dvd.yspeed;
+        burrito.x+=burrito.xspeed;
+        burrito.y+=burrito.yspeed;
         //Check for collision 
         checkHitBox();
         update();   
@@ -45,13 +45,13 @@ function update() {
 
 //Check for border collision
 function checkHitBox(){
-    if(dvd.x+dvd.img.width*scale >= canvas.width || dvd.x <= 0){
-        dvd.xspeed *= -1;
+    if(burrito.x+burrito.img.width*scale >= canvas.width || burrito.x <= 0){
+        burrito.xspeed *= -1;
         pickColor();
     }
         
-    if(dvd.y+dvd.img.height*scale >= canvas.height || dvd.y <= 0){
-        dvd.yspeed *= -1;
+    if(burrito.y+burrito.img.height*scale >= canvas.height || burrito.y <= 0){
+        burrito.yspeed *= -1;
         pickColor();
     }    
 }
