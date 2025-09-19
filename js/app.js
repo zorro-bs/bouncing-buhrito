@@ -1,5 +1,5 @@
 let speed = 20;
-let scale = 0.14; // Image scale (I work on 1080p monitor)
+let scale = 0.15; // Image scale (I work on 1080p monitor)
 let canvas;
 let ctx;
 let logoColor;
@@ -7,8 +7,8 @@ let logoColor;
 let burrito = {
     x: 200,
     y: 300,
-    xspeed: 6,
-    yspeed: 6,
+    xspeed: 7,
+    yspeed: 7,
     img: new Image()
 };
 
