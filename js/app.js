@@ -22,7 +22,7 @@ mc.on("tap", function() {
     addNewBuhrito("images/buhrit-bounce-logo.png");
 });
 
-mc.on("swipe", function() {
+mc.on("press", function() {
     addNewBuhrito("images/spongebob-bounce-logo.png");
 });
 
@@ -43,7 +43,7 @@ function addNewBuhrito(imgSrc) {
     //Draw the "tv screen"
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
-    alert("Press \"b\" or tap to make a Buhrito.\nPress \"s\" or swipe to make a Spongebob.");
+    alert("Press \"b\" or tap to make a Buhrito.\nPress \"s\" or long-press to make a Spongebob.");
     pickColor();
     update();
 })();
