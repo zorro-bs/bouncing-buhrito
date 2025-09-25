@@ -3,24 +3,47 @@ let scale = 0.15; // Image scale (I work on 1080p monitor)
 let canvas;
 let ctx;
 let logoColor;
+let img = new Image();
+imgWidth = 200;
+imgHeight = 200;
 
-let burrito = {
-    x: 300 + Math.floor(Math.random() * 40) - 20,
-    y: 300 + Math.floor(Math.random() * 40) - 20,
-    xspeed: 5 * (Math.random() > 0.5 ? -1 : 1),
-    yspeed: 5 * (Math.random() > 0.5 ? -1 : 1),
-    img: new Image()
-};
 
-(function main(){
+let buhritos = [];
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'b') addNewBuhrito("images/buhrit-bounce-logo.png");
+  if (event.key === 's') addNewBuhrito("images/spongebob-bounce-logo.png");
+});
+
+var background = document.getElementById("tv-screen");
+var mc = new Hammer(background);
+
+mc.on("tap", function() {
+    addNewBuhrito("images/buhrit-bounce-logo.png");
+});
+
+mc.on("swipe", function() {
+    addNewBuhrito("images/spongebob-bounce-logo.png");
+});
+
+function addNewBuhrito(imgSrc) {
+    buhritos.push(new Object({
+        x: Math.floor(Math.random() * (window.innerWidth - imgWidth - 20)) + 20,
+        y: Math.floor(Math.random() * (window.innerHeight - imgHeight - 40)) + 40,
+        xspeed: 5 * (Math.random() > 0.5 ? -1 : 1),
+        yspeed: 5 * (Math.random() > 0.5 ? -1 : 1),
+        img: imgSrc,
+    }));
+}
+
+(function main() {
     canvas = document.getElementById("tv-screen");
     ctx = canvas.getContext("2d");
-    burrito.img.src = 'images/buhrit-bounce-logo.png';
 
     //Draw the "tv screen"
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
-
+    alert("Press \"b\" or tap to make a Buhrito.\nPress \"s\" or swipe to make a Spongebob.");
     pickColor();
     update();
 })();
@@ -29,40 +52,48 @@ function update() {
     setTimeout(() => {
         //Draw the canvas background
         ctx.fillStyle = '#000';
+
+        canvas.height = window.innerHeight;   
+        canvas.width = window.innerWidth;
+
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         //Draw burrito Logo and his background
-        ctx.fillStyle = logoColor;
-        ctx.fillRect(burrito.x, burrito.y, burrito.img.width*scale, burrito.img.height*scale);
-        ctx.drawImage(burrito.img, burrito.x, burrito.y, burrito.img.width*scale, burrito.img.height*scale);
+        //console.log(buhritos.length + " burritos in the list");
+        for (let i = 0; i < buhritos.length; i++) {
+            img.src = buhritos[i].img;
+            ctx.drawImage(img, buhritos[i].x, buhritos[i].y, imgWidth, imgHeight);
         //Move the logo
-        burrito.x+=burrito.xspeed;
-        burrito.y+=burrito.yspeed;
+            buhritos[i].x += buhritos[i].xspeed;
+            buhritos[i].y += buhritos[i].yspeed;
         //Check for collision 
-        checkHitBox();
+            if(checkHitBox(buhritos[i])) {
+                buhritos.splice(i, 1);
+                i--;
+            }
+        }
         update();   
     }, speed)
 }
 
 //Check for border collision
-function checkHitBox(){
-    if(burrito.x+burrito.img.width*scale >= canvas.width || burrito.x <= 0){
-        burrito.xspeed *= -1;
-        pickColor();
+function checkHitBox(b){
+    if(b.x + imgWidth >= canvas.width || b.x <= 0) {
+        if(b.x + imgWidth >= canvas.width && b.xspeed < 0) return true;
+        if(b.x <= 0 && b.xspeed > 0) return true;
+        b.xspeed *= -1;  
     }
         
-    if(burrito.y+burrito.img.height*scale >= canvas.height || burrito.y <= 0){
-        burrito.yspeed *= -1;
-        pickColor();
-    }    
+    if(b.y + imgHeight >= canvas.height || b.y <= 0) {
+        if(b.y + imgHeight >= canvas.height && b.yspeed < 0) return true;
+        if(b.y <= 0 && b.yspeed > 0) return true;
+        b.yspeed *= -1;
+        
+    }
+    return false;
 }
 
 //Pick a random color in RGB format
-function pickColor(){
-    r = Math.random() * 234 + 20;
-    g = Math.random() * 234 + 20;
-    b = Math.random() * 234 + 20;
-
-    logoColor = 'rgb('+r+','+g+', '+b+')';
+function pickColor(b){
 
 }
 
